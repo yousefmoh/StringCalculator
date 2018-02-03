@@ -14,6 +14,9 @@ namespace StringCalculator
         {
             int result = 0;
             string[] delimiters = { };
+            string delimiter="";
+            int temp = 0;
+            string negative_numbers = "";
 
 
 
@@ -25,7 +28,15 @@ namespace StringCalculator
             //Length of string equals 1
             else if (numbers.Length == 1)
             {
-                result = int.Parse(numbers);
+                temp = int.Parse(numbers);
+                if(temp<0)
+                {
+
+                    negative_numbers = negative_numbers + temp;
+                }
+                else
+                result = temp;
+                
             }
 
             //Invalid Input
@@ -40,28 +51,45 @@ namespace StringCalculator
             {
                 delimiters = numbers.Split(',');
             }
-            else
+            else if (numbers.Contains("\n") && !numbers.StartsWith("//"))
             {
                 delimiters = numbers.Split(new string[] { ",", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             }
+            //4. Support different delimiters 
+            else 
+            {
+                delimiter = numbers.Substring(2, 1);
+                numbers = numbers.Substring(3);
+                delimiters = numbers.Split(new string[] { delimiter, "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
+            }
+
+            /* split 
+             * check negative numbers (5)
+             * */
             if (delimiters.Length > 0)
             {
 
                 foreach (string number in delimiters)
                 {
-                    result = int.Parse(number) + result;
+                    temp = int.Parse(number);
+                    if (temp < 0)
+                    {
+
+                        negative_numbers = negative_numbers + temp;
+                    }
+                    else 
+                    result = temp + result;
                 }
             }
 
+            if (!string.IsNullOrEmpty(negative_numbers))
+            {
+                throw new Exception("negatives not allowed " + negative_numbers);
 
-
-
-
-
+            }
             return result;
-
 
         }
 
