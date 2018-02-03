@@ -51,8 +51,6 @@ namespace StringCalculatorUnitTest
         }
 
 
-
-
         // single delimiter  
         [TestMethod]
         public void AddWithSingleDelimiter()
@@ -81,6 +79,8 @@ namespace StringCalculatorUnitTest
 
         }
 
+
+        //Multiple Delimiters Single Character 
         [TestMethod]
         public void AddWithMultiDelimiterSingleChar()
         {
@@ -89,6 +89,7 @@ namespace StringCalculatorUnitTest
 
         }
 
+        // Delimiter Of Any Length 
         [TestMethod]
         public void AddWithMultiDelimiterChars()
         {
@@ -98,7 +99,7 @@ namespace StringCalculatorUnitTest
         }
 
 
-
+        // Multiple delimiters  Of Any length
         [TestMethod]
         public void AddNumbersBiggerThanOneThousand()
         {
@@ -107,11 +108,12 @@ namespace StringCalculatorUnitTest
 
         }
 
+        // Multiple delimiters with 1000 number
         [TestMethod]
         public void AddNumbersWithOneThousand()
         {
 
-            Assert.AreEqual(1005, test.Add("//[***][%%]\n1***2%%1000***2"));
+            Assert.AreEqual(1005, test.Add("//[***][%%]\n1***2%%1000%%2"));
 
         }
 

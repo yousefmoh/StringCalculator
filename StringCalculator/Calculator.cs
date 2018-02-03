@@ -68,14 +68,24 @@ namespace StringCalculator
             }
 
 
-            // Any length  of Delimiters
+            //  Multiple delimiters with any length
             else 
             {
 
-                delimiter = numbers.Split('[', ']')[1];
-                int start = numbers.LastIndexOf(']')+1;
-                numbers = numbers.Substring(start, numbers.Length-start);
-                delimiters = numbers.Split(new string[] { delimiter, "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] deleminters = new string[brackets_counter + 1];
+
+                for (int i = 0; i < brackets_counter; i++)
+                {
+                    delimiter = numbers.Split('[', ']')[1];
+                    deleminters[i] = delimiter;
+                    numbers = numbers.Substring(numbers.IndexOf(']') + 1);
+
+                }
+
+                deleminters[brackets_counter] = "\n";
+                
+                delimiters = numbers.Split(deleminters, StringSplitOptions.RemoveEmptyEntries);
+                
 
 
             }
@@ -102,6 +112,8 @@ namespace StringCalculator
                 }
             }
 
+
+            // Negative Numbers Exception Message
             if (!string.IsNullOrEmpty(negative_numbers))
             {
                 throw new Exception("negatives not allowed " + negative_numbers);
