@@ -11,7 +11,7 @@ namespace StringCalculator
         static void Main(string[] args)
         {
             Calculator cal = new Calculator();
-            //cal.Add("-1");
+            Console.WriteLine(cal.Add("//[***]\n1***2***3"));
         }
     }
 }

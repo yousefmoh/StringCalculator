@@ -17,6 +17,8 @@ namespace StringCalculator
             string delimiter="";
             int temp = 0;
             string negative_numbers = "";
+            int brackets_counter = numbers.Count(f => f == '[');
+
 
 
 
@@ -56,8 +58,8 @@ namespace StringCalculator
                 delimiters = numbers.Split(new string[] { ",", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             }
-            //4. Support different delimiters 
-            else 
+            //4. Support different delimiters  without brackets
+            else if (brackets_counter == 0 && numbers.StartsWith("//"))
             {
                 delimiter = numbers.Substring(2, 1);
                 numbers = numbers.Substring(3);
@@ -65,8 +67,23 @@ namespace StringCalculator
 
             }
 
+
+            // Any length  of Delimiters
+            else 
+            {
+
+                delimiter = numbers.Split('[', ']')[1];
+                int start = numbers.LastIndexOf(']')+1;
+                numbers = numbers.Substring(start, numbers.Length-start);
+                delimiters = numbers.Split(new string[] { delimiter, "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+
+            }
+
             /* split 
              * check negative numbers (5)
+             * check numbers bigger than 1000 (6)
+             * 
              * */
             if (delimiters.Length > 0)
             {
@@ -76,11 +93,12 @@ namespace StringCalculator
                     temp = int.Parse(number);
                     if (temp < 0)
                     {
-
                         negative_numbers = negative_numbers + temp;
                     }
-                    else 
-                    result = temp + result;
+                    else if (temp > 0 && temp <= 1000)
+                    {
+                        result = temp + result;
+                    }
                 }
             }
 
